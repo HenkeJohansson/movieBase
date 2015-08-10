@@ -1,0 +1,55 @@
+<!-- home.html -->
+
+<div class="container">
+	<header>
+		<h1 class="text-center">Movie Base</h1>
+	</header>
+	<div class="row">
+		<div id="list-seen" class="col-xs-12 col-md-6 list">
+			<h2 class="text-center">Sedda</h2>
+			<table class="table">
+				<thead>
+					<tr>
+						<th>Idx</th>
+						<th>Namn</th>
+						<th>Genre</th>
+						<th>Betyg</th>
+						<th>År</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr ng-repeat="movie in vm.seen">
+						<td>{{movie.idx}}</td>
+						<td>{{movie.name}}</td>
+						<td>{{movie.genre}}</td>
+						<td>{{movie.rating}}</td>
+						<td>{{movie.year}}</td>
+					</tr>
+				</tbody>
+			</table>
+		</div><!-- #list-seen -->
+		<div id="list-unseen" class="col-xs-12 col-md-6 list">
+			<h2 class="text-center">Osedda</h2>
+			<table class="table">
+				<thead>
+					<tr>
+						<th>Idx</th>
+						<th>Namn</th>
+						<th>Genre</th>
+						<th>Betyg</th>
+						<th>År</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr ng-repeat="movie in vm.unseen">
+						<td>{{movie.idx}}</td>
+						<td>{{movie.name}}</td>
+						<td>{{movie.genre}}</td>
+						<td>{{movie.rating}}</td>
+						<td>{{movie.year}}</td>
+					</tr>
+				</tbody>
+			</table>
+		</div><!-- #list-unseen -->
+	</div>
+</div><!-- .container -->

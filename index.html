@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html ng-app="movieBase" lang="sv">
+<head>
+	<meta charset="UTF-8">
+	<title>Movie Base</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<base href="/">
+	<!-- Stylesheets -->
+	<link rel="stylesheet" href="css/bootstrap.min.css">
+	<link rel="stylesheet" href="css/style.css">
+	<!-- Scripts -->
+	<script src="res/angular_1.4.2.min.js"></script>
+	<script src="res/angular-route_1.4.2.min.js"></script>
+	<script src="res/angular-animate_1.4.2.min.js"></script>
+	<script src="res/ui-bootstrap-tpls-0.13.0.min.js"></script>
+	<script src="app/movieBase.js"></script>
+</head>
+<body>
+
+	<div ng-view id="view">
+		<!-- Main content with injected views -->
+	</div><!-- #view -->
+
+	<button class="btn btn-primary"><a href="addMovie">Lägg till Film</a></button>
+	<button class="btn btn-primary"><a href="/">Listorna</a></button>
+
+	
+</body>
+</html>

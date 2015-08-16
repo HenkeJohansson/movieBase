@@ -169,18 +169,26 @@ movieBase.controller('homeCtrl', function() {
 	];
 });
 
-movieBase.controller('addMovieCtrl', function() {
-	var addMovies = this;
+movieBase.controller('addMovieCtrl', function($http) {
+	var addMovie = this;
 
-	addMovies.add = [];
+	addMovie.add = [];
 
-	addMovies.addMovie = function() {
-		var moviesAdd = {
+	addMovie.addMovies = function() {
+		var movieAdd = {
 			name: addMovie.name,
 			genre: addMovie.genre,
 			rating: addMovie.rating,
 			year: addMovie.year
 		};
-		addMovies.add.push(moviesAdd);
+		addMovie.add.push(movieAdd);
+
+		$http.post('api/addMovie.php', movieAdd).
+			success(function() {
+				addMovie.name = '';
+				addMovie.genre = '';
+				addMovie.rating = '';
+				addMovie.year = '';
+			});
 	};
 });

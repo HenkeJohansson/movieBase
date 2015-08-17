@@ -1,38 +1,88 @@
 
 
-<h1 class="text-center">Lägg till Film</h1>
+<div class="container">
 
-<form id="add-movie" ng-submit="vm.addMovies()">
-	<label for="name">Namn</label>
-	<input ng-model="vm.name" name="name" id="name" type="text">
-	
-	<label for="genre">Genre</label>
-	<select ng-model="vm.genre" name="genre" id="genre">
-		<option value="sci-fi">Sci-Fi</option>
-		<option value="action">Action</option>
-		<option value="crime">Crime</option>
-		<option value="drama">Drama</option>
-		<option value="film-noir">Film-Noir</option>
-		<option value="comedy">Komedi</option>
-	</select>
-	
-	<label for="rating">Betyg</label>
-	<select ng-model="vm.rating" name="rating" id="rating">
-		<option value="1">1</option>
-		<option value="2">2</option>
-		<option value="3">3</option>
-		<option value="4">4</option>
-		<option value="5">5</option>
-		<option value="1">6</option>
-		<option value="2">7</option>
-		<option value="3">8</option>
-		<option value="4">9</option>
-		<option value="5">10</option>
-	</select>
-	
-	<label for="year">År</label>
-	<input ng-model="vm.year" name="year" id="year" type="number">
+	<h1 class="text-center">Lägg till Film</h1>
 
-	<input type="submit" value="Lägg till Film">
-	
-</form>
+
+	<div class="row">
+		<div class="col-lg-6">
+			<div class="input-group">
+				<input type="text" class="form-control" ng-model="search" ng-change="change()" placeholder="Enter full movie name">
+				<span class="input-group-btn">
+					<button class="btn btn-primary" type="button">Sök</button>
+				</span>
+			</div><!-- .input-group -->
+		</div><!-- .col-lg-6 -->
+	</div><!-- .row -->
+
+	<div ng-include="partials/searchResults.html" class="searchResultContainer"></div><!-- .result -->
+
+	<div class="container">
+		<div class="row">
+			<div class="col-12-xs">
+				<table class="table">
+					<thead>
+						<tr>
+							<th>Titel</th>
+							<th>År</th>
+							<th>Imdb Id</th>
+							<th>Typ</th>
+							<th>Lägg Till</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr ng-repeat="movie in vm.details">
+							<td>{{vm.Title}}</td>
+							<td>{{vm.Year}}</td>
+							<td>{{vm.imdbID}}</td>
+							<td>{{vm.Type}}</td>
+							<td><button class="btn btn-primary">Lägg Till</button></td>
+						</tr>
+					</tbody>
+				</table>
+			</div><!-- .col-xs-12 -->
+		</div><!-- .row -->
+	</div>
+
+
+
+<!--
+	<form id="add-movie" ng-submit="vm.addMovies()">
+		<label for="name">Namn</label>
+		<input ng-model="vm.name" name="name" id="name" type="text">
+		
+		<label for="genre">Genre</label>
+		<select ng-model="vm.genre" name="genre" id="genre">
+			<option value="sci-fi">Sci-Fi</option>
+			<option value="action">Action</option>
+			<option value="crime">Crime</option>
+			<option value="drama">Drama</option>
+			<option value="film-noir">Film-Noir</option>
+			<option value="comedy">Komedi</option>
+		</select>
+		
+		<label for="rating">Betyg</label>
+		<select ng-model="vm.rating" name="rating" id="rating">
+			<option value="1">1</option>
+			<option value="2">2</option>
+			<option value="3">3</option>
+			<option value="4">4</option>
+			<option value="5">5</option>
+			<option value="1">6</option>
+			<option value="2">7</option>
+			<option value="3">8</option>
+			<option value="4">9</option>
+			<option value="5">10</option>
+		</select>
+		
+		<label for="year">År</label>
+		<input ng-model="vm.year" name="year" id="year" type="number">
+
+		<input type="submit" value="Lägg till Film">
+		
+	</form>
+
+-->
+
+</div><!-- .container -->

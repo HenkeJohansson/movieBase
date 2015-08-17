@@ -172,6 +172,55 @@ movieBase.controller('homeCtrl', function() {
 movieBase.controller('addMovieCtrl', function($http) {
 	var addMovie = this;
 
+	/***********************************************
+	** Search
+	***********************************************/
+	var pendingTask;
+	addMovie.details = [];
+	addMovie.related = [];
+
+	if (addMovie.search === undefined) {
+		addMovie.search = 'Star Wars: Episode IV - A New Hope';
+		fetch();
+	}
+
+
+	addMovie.change = function() {
+		if (pendingTask) {
+			clearTimeout(pendingTask);
+		}
+		pendingTask = setTimeout(fetch, 800);
+	};
+
+	function fetch() {
+		$http.get("http://www.omdbapi.com/?s=" + addMovie.search + "&plot=short&r=json").
+			success(function(response) {
+				// addMovie.details = response.Search;
+				addMovie.details.length = 0;
+				Array.prototype.push.apply(addMovie.details, response.Search);
+				console.log(addMovie.details);
+			});
+
+		$http.get("http://www.omdbapi.com/?s=" + addMovie.search).
+			success(function(response) {
+				addMovie.related = response.Search;
+				console.log(addMovie.related);
+			});
+	}
+
+	addMovie.update = function(movie) {
+		addMovie.search = movie.Title;
+		addMovie.change();
+	};
+
+	addMovie.select = function () {
+		this.setSelectionRange(0, this.value.length);
+	};
+
+
+	/***********************************************
+	** Add
+	***********************************************/
 	addMovie.add = [];
 
 	addMovie.addMovies = function() {

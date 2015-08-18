@@ -11,7 +11,7 @@ movieBase.config(function($routeProvider, $locationProvider) {
 		})
 		.when('/addMovie', {
 			templateUrl : 'pages/addMovie.html',
-			controller 	: 'addMovieCtrl',
+			controller 	: 'omdbiCtrl',
 			controllerAs : 'vm'
 		});
 
@@ -169,23 +169,23 @@ movieBase.controller('homeCtrl', function() {
 	];
 });
 
-movieBase.controller('addMovieCtrl', function($http) {
-	var addMovie = this;
+movieBase.controller('omdbiCtrl', function($http) {
+	var ombdi = this;
 
 	/***********************************************
 	** Search
 	***********************************************/
 	var pendingTask;
-	addMovie.details = [];
-	addMovie.related = [];
+	ombdi.details = [];
+	ombdi.related = [];
 
-	if (addMovie.search === undefined) {
-		addMovie.search = 'Star Wars: Episode IV - A New Hope';
+	if (ombdi.search === undefined) {
+		ombdi.search = 'Star Wars: Episode IV - A New Hope';
 		fetch();
 	}
 
 
-	addMovie.change = function() {
+	ombdi.change = function() {
 		if (pendingTask) {
 			clearTimeout(pendingTask);
 		}
@@ -193,51 +193,43 @@ movieBase.controller('addMovieCtrl', function($http) {
 	};
 
 	function fetch() {
-		$http.get("http://www.omdbapi.com/?s=" + addMovie.search + "&plot=short&r=json").
+		$http.get("http://www.omdbapi.com/?s=" + ombdi.search + "&plot=short&r=json").
 			success(function(response) {
-				// addMovie.details = response.Search;
-				addMovie.details.length = 0;
-				Array.prototype.push.apply(addMovie.details, response.Search);
-				console.log(addMovie.details);
+				ombdi.details = response.Search;
+				// ombdi.details.length = 0;
+				// Array.prototype.push.apply(ombdi.details, response.Search);
+
+				console.log(ombdi.details);
 			});
 
-		$http.get("http://www.omdbapi.com/?s=" + addMovie.search).
+		$http.get("http://www.omdbapi.com/?s=" + ombdi.search).
 			success(function(response) {
-				addMovie.related = response.Search;
-				console.log(addMovie.related);
+				ombdi.related = response.Search;
+				console.log(ombdi.related);
 			});
 	}
-
-	addMovie.update = function(movie) {
-		addMovie.search = movie.Title;
-		addMovie.change();
-	};
-
-	addMovie.select = function () {
-		this.setSelectionRange(0, this.value.length);
-	};
 
 
 	/***********************************************
 	** Add
 	***********************************************/
-	addMovie.add = [];
+	ombdi.add = [];
 
-	addMovie.addMovies = function() {
+	ombdi.ombdis = function() {
 		var movieAdd = {
-			name: addMovie.name,
-			genre: addMovie.genre,
-			rating: addMovie.rating,
-			year: addMovie.year
+			name: ombdi.name,
+			genre: ombdi.genre,
+			rating: ombdi.rating,
+			year: ombdi.year
 		};
-		addMovie.add.push(movieAdd);
+		ombdi.add.push(movieAdd);
 
-		$http.post('api/addMovie.php', movieAdd).
+		$http.post('api/ombdi.php', movieAdd).
 			success(function() {
-				addMovie.name = '';
-				addMovie.genre = '';
-				addMovie.rating = '';
-				addMovie.year = '';
+				ombdi.name = '';
+				ombdi.genre = '';
+				ombdi.rating = '';
+				ombdi.year = '';
 			});
 	};
 });

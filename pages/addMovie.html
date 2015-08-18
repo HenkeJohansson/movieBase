@@ -8,17 +8,15 @@
 	<div class="row">
 		<div class="col-lg-6">
 			<div class="input-group">
-				<input type="text" class="form-control" ng-model="search" ng-change="change()" placeholder="Enter full movie name">
+				<input type="text" class="form-control" ng-model="vm.search" ng-change="vm.change()" placeholder="Skriv filmens fulla namn">
 				<span class="input-group-btn">
-					<button class="btn btn-primary" type="button">Sök</button>
+					<button class="btn btn-primary" ng-click="vm.fetch()" type="button">Sök</button>
 				</span>
 			</div><!-- .input-group -->
 		</div><!-- .col-lg-6 -->
 	</div><!-- .row -->
 
-	<div ng-include="partials/searchResults.html" class="searchResultContainer"></div><!-- .result -->
-
-	<div class="container">
+	<div class="container-fluid">
 		<div class="row">
 			<div class="col-12-xs">
 				<table class="table">
@@ -33,10 +31,10 @@
 					</thead>
 					<tbody>
 						<tr ng-repeat="movie in vm.details">
-							<td>{{vm.Title}}</td>
-							<td>{{vm.Year}}</td>
-							<td>{{vm.imdbID}}</td>
-							<td>{{vm.Type}}</td>
+							<td>{{movie.Title}}</td>
+							<td>{{movie.Year}}</td>
+							<td>{{movie.imdbID}}</td>
+							<td>{{movie.Type}}</td>
 							<td><button class="btn btn-primary">Lägg Till</button></td>
 						</tr>
 					</tbody>
@@ -48,7 +46,7 @@
 
 
 <!--
-	<form id="add-movie" ng-submit="vm.addMovies()">
+	<form id="add-movie" ng-submit="movie.addMovies()">
 		<label for="name">Namn</label>
 		<input ng-model="vm.name" name="name" id="name" type="text">
 		

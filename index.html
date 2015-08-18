@@ -17,13 +17,16 @@
 </head>
 <body>
 
-	<div ng-view id="view">
-		<!-- Main content with injected views -->
-	</div><!-- #view -->
+	<div class="container">
 
-	<button class="btn btn-primary"><a href="addMovie">Lägg till Film</a></button>
-	<button class="btn btn-primary"><a href="/">Listorna</a></button>
+		<div ng-view id="view">
+			<!-- Main content with injected views -->
+		</div><!-- #view -->
 
+		<button class="btn btn-primary"><a href="addMovie">Lägg till Film</a></button>
+		<button class="btn btn-primary"><a href="/">Listorna</a></button>
+
+	</div><!-- .container -->
 	
 </body>
 </html>

@@ -170,22 +170,23 @@ movieBase.controller('homeCtrl', function() {
 });
 
 movieBase.controller('omdbiCtrl', function($http) {
-	var ombdi = this;
+	var omdbi = this;
 
 	/***********************************************
 	** Search
 	***********************************************/
 	var pendingTask;
-	ombdi.details = [];
-	ombdi.related = [];
+	omdbi.details = [];
+	omdbi.related = [];
+	omdbi.fullMovieInfo = {};
 
-	if (ombdi.search === undefined) {
-		ombdi.search = 'Star Wars: Episode IV - A New Hope';
+	if (omdbi.search === undefined) {
+		omdbi.search = 'Star Wars: Episode IV - A New Hope';
 		fetch();
 	}
 
 
-	ombdi.change = function() {
+	omdbi.change = function() {
 		if (pendingTask) {
 			clearTimeout(pendingTask);
 		}
@@ -193,43 +194,59 @@ movieBase.controller('omdbiCtrl', function($http) {
 	};
 
 	function fetch() {
-		$http.get("http://www.omdbapi.com/?s=" + ombdi.search + "&plot=short&r=json").
+		$http.get("http://www.omdbapi.com/?s=" + omdbi.search + "&plot=short&r=json").
 			success(function(response) {
-				ombdi.details = response.Search;
-				// ombdi.details.length = 0;
-				// Array.prototype.push.apply(ombdi.details, response.Search);
+				omdbi.details = response.Search;
+				// omdbi.details.length = 0;
+				// Array.prototype.push.apply(omdbi.details, response.Search);
 
-				console.log(ombdi.details);
+				console.log(omdbi.details);
 			});
 
-		$http.get("http://www.omdbapi.com/?s=" + ombdi.search).
+		$http.get("http://www.omdbapi.com/?s=" + omdbi.search).
 			success(function(response) {
-				ombdi.related = response.Search;
-				console.log(ombdi.related);
+				omdbi.related = response.Search;
+				console.log(omdbi.related);
 			});
 	}
+
+	omdbi.save = function(imdbID) {
+		$http.get("http://www.omdbapi.com/?i=" + imdbID + "&plot=short&r=json").
+			success(function(response) {
+				omdbi.fullMovieInfo = response;
+				console.log(omdbi.fullMovieInfo);
+				// omdbi.insertMovie();
+				$http.post("api/addMovie.php", movieAdd).
+					success(function() {
+						console.log('Film tillagd');
+						console.log(omdbi.fullMovieInfo.name);
+					});
+			});
+	};
+
+	var movieAdd = {
+		name: omdbi.fullMovieInfo.Title,
+		name_original: omdbi.fullMovieInfo.Name_original,
+		plot: omdbi.fullMovieInfo.Plot,
+		year: omdbi.fullMovieInfo.Year,
+		imdb_id: omdbi.fullMovieInfo.imdbID,
+		imdb_poster: omdbi.fullMovieInfo.Poster,
+		imdb_rating: omdbi.fullMovieInfo.imdbRating,
+		imdb_votes: omdbi.fullMovieInfo.imdbVotes,
+		genre: omdbi.fullMovieInfo.Genre,
+		length: omdbi.fullMovieInfo.Runtime,
+		director: omdbi.fullMovieInfo.Director,
+		writer: omdbi.fullMovieInfo.Writer,
+		actors: omdbi.fullMovieInfo.Actors
+	};
 
 
 	/***********************************************
 	** Add
 	***********************************************/
-	ombdi.add = [];
 
-	ombdi.ombdis = function() {
-		var movieAdd = {
-			name: ombdi.name,
-			genre: ombdi.genre,
-			rating: ombdi.rating,
-			year: ombdi.year
-		};
-		ombdi.add.push(movieAdd);
+	omdbi.fullMovieInfo = [];
 
-		$http.post('api/ombdi.php', movieAdd).
-			success(function() {
-				ombdi.name = '';
-				ombdi.genre = '';
-				ombdi.rating = '';
-				ombdi.year = '';
-			});
-	};
+
+
 });

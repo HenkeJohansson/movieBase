@@ -6,14 +6,14 @@
 
 
 	<div class="row">
-		<div class="col-lg-6">
+		<div class="col-xs-12">
 			<div class="input-group">
 				<input type="text" class="form-control" ng-model="vm.search" ng-change="vm.change()" placeholder="Skriv filmens fulla namn">
 				<span class="input-group-btn">
 					<button class="btn btn-primary" ng-click="vm.fetch()" type="button">Sök</button>
 				</span>
 			</div><!-- .input-group -->
-		</div><!-- .col-lg-6 -->
+		</div><!-- .col-xs-12 -->
 	</div><!-- .row -->
 
 	<div class="container-fluid">
@@ -24,18 +24,16 @@
 						<tr>
 							<th>Titel</th>
 							<th>År</th>
-							<th>Imdb Id</th>
 							<th>Typ</th>
 							<th>Lägg Till</th>
 						</tr>
 					</thead>
 					<tbody>
 						<tr ng-repeat="movie in vm.details">
-							<td>{{movie.Title}}</td>
+							<td><a href="http://www.imdb.com/title/{{movie.imdbID}}" target="_blank">{{movie.Title}}</a></td>
 							<td>{{movie.Year}}</td>
-							<td>{{movie.imdbID}}</td>
 							<td>{{movie.Type}}</td>
-							<td><button class="btn btn-primary">Lägg Till</button></td>
+							<td><button class="btn btn-primary" ng-click="vm.save(movie.imdbID)">Lägg Till</button></td>
 						</tr>
 					</tbody>
 				</table>

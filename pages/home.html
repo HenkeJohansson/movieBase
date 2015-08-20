@@ -13,7 +13,7 @@
 						<th>Idx</th>
 						<th>Namn</th>
 						<th>Genre</th>
-						<th>Betyg</th>
+						<th>imdb Betyg</th>
 						<th>År</th>
 						<th></th>
 					</tr>
@@ -38,9 +38,9 @@
 						<th>Idx</th>
 						<th>Namn</th>
 						<th>Genre</th>
-						<th>Betyg</th>
+						<th>imdb Betyg</th>
 						<th>År</th>
-						<th></th>
+						<th>Mitt Betyg</th>
 					</tr>
 				</thead>
 				<tbody>
@@ -50,7 +50,7 @@
 						<td>{{movie.genre}}</td>
 						<td>{{movie.imdb_rating}}</td>
 						<td>{{movie.year}}</td>
-						<td>{{movie.my_rating}}</td>
+						<td><button class="btn btn-primary rating">{{movie.my_rating}}</button></td>
 					</tr>
 				</tbody>
 			</table>

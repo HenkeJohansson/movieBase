@@ -2,7 +2,10 @@
 
 	include 'includes/connect.inc.php';
 
-	$sql = "SELECT * FROM movies WHERE watched = 0";
+
+	$watched = $_GET['watched'];
+
+	$sql = "SELECT * FROM movies WHERE watched = '$watched'";
 	$result = $db->query($sql);
 
 	$movies = array();

@@ -19,9 +19,16 @@ movieBase.config(function($routeProvider, $locationProvider) {
 });
 
 
-movieBase.controller('homeCtrl', function() {
+movieBase.controller('homeCtrl', function($http) {
 	var home = this;
 
+	$http.get('api/getMovies.php').success(function(response) {
+		home.seen = response;
+		console.log(response);
+	});
+
+
+	/*
 	home.seen = [
 		{
 			idx : 1,
@@ -94,73 +101,74 @@ movieBase.controller('homeCtrl', function() {
 			year: 1949
 		},
 	];
+	*/
 
 	home.unseen = [
 		{
-			idx : 1,
+			id : 1,
 			name : 'Mad Max: Fury Road',
 			genre : 'Action',
 			rating : '8.4',
 			year : 2015
 		},
 		{
-			idx : 2,
+			id : 2,
 			name : 'Dark City',
 			genre : 'Sci-Fi',
 			rating : '7.7',
 			year : 1998
 		},
 		{
-			idx : 3,
+			id : 3,
 			name : 'The Man from U.N.C.L.E',
 			genre : 'Action',
 			rating : '?',
 			year : 2015
 		},
 		{
-			idx : 4,
+			id : 4,
 			name : 'Minions',
 			genre : 'Comedy',
 			rating : '6.7',
 			year : 2015
 		},
 		{
-			idx : 5,
+			id : 5,
 			name : 'Southpaw',
 			genre : 'Drama',
 			rating : '7.9',
 			year : 2015
 		},
 		{
-			idx : 6,
+			id : 6,
 			name : 'American Ultra',
 			genre : 'Action',
 			rating : '?',
 			year : 2015
 		},
 		{
-			idx : 7,
+			id : 7,
 			name : 'Suicide Squad',
 			genre : 'Action',
 			rating : '?',
 			year : 2015
 		},
 		{
-			idx : 8,
+			id : 8,
 			name : 'Batman v Superman: Dawn of Justice',
 			genre : 'Action',
 			rating : '?',
 			year : 2015
 		},
 		{
-			idx : 9,
+			id : 9,
 			name : 'Deadpool',
 			genre : 'Action',
 			rating : '?',
 			year : 2016
 		},
 		{
-			idx : 10,
+			id : 10,
 			name : 'Spectre',
 			genre : 'Action',
 			rating : '?',
@@ -216,6 +224,23 @@ movieBase.controller('omdbiCtrl', function($http) {
 				omdbi.fullMovieInfo = response;
 				console.log(omdbi.fullMovieInfo);
 				// omdbi.insertMovie();
+				
+				var movieAdd = {
+					name: omdbi.fullMovieInfo.Title,
+					name_original: omdbi.fullMovieInfo.Name_original,
+					plot: omdbi.fullMovieInfo.Plot,
+					year: omdbi.fullMovieInfo.Year,
+					imdb_id: omdbi.fullMovieInfo.imdbID,
+					imdb_poster: omdbi.fullMovieInfo.Poster,
+					imdb_rating: omdbi.fullMovieInfo.imdbRating,
+					imdb_votes: omdbi.fullMovieInfo.imdbVotes,
+					genre: omdbi.fullMovieInfo.Genre,
+					length: omdbi.fullMovieInfo.Runtime,
+					director: omdbi.fullMovieInfo.Director,
+					writer: omdbi.fullMovieInfo.Writer,
+					actors: omdbi.fullMovieInfo.Actors
+				};
+
 				$http.post("api/addMovie.php", movieAdd).
 					success(function() {
 						console.log('Film tillagd');
@@ -224,21 +249,6 @@ movieBase.controller('omdbiCtrl', function($http) {
 			});
 	};
 
-	var movieAdd = {
-		name: omdbi.fullMovieInfo.Title,
-		name_original: omdbi.fullMovieInfo.Name_original,
-		plot: omdbi.fullMovieInfo.Plot,
-		year: omdbi.fullMovieInfo.Year,
-		imdb_id: omdbi.fullMovieInfo.imdbID,
-		imdb_poster: omdbi.fullMovieInfo.Poster,
-		imdb_rating: omdbi.fullMovieInfo.imdbRating,
-		imdb_votes: omdbi.fullMovieInfo.imdbVotes,
-		genre: omdbi.fullMovieInfo.Genre,
-		length: omdbi.fullMovieInfo.Runtime,
-		director: omdbi.fullMovieInfo.Director,
-		writer: omdbi.fullMovieInfo.Writer,
-		actors: omdbi.fullMovieInfo.Actors
-	};
 
 
 	/***********************************************

@@ -1,6 +1,6 @@
 <!-- home.html -->
 
-<div class="container">
+<div class="container-fluid">
 	<header>
 		<h1 class="text-center">Movie Base</h1>
 	</header>
@@ -15,15 +15,17 @@
 						<th>Genre</th>
 						<th>Betyg</th>
 						<th>År</th>
+						<th></th>
 					</tr>
 				</thead>
 				<tbody>
 					<tr ng-repeat="movie in vm.unseen">
-						<td>{{movie.idx}}</td>
+						<td>{{movie.id}}</td>
 						<td>{{movie.name}}</td>
 						<td>{{movie.genre}}</td>
-						<td>{{movie.rating}}</td>
+						<td>{{movie.imdb_rating}}</td>
 						<td>{{movie.year}}</td>
+						<td><button class="btn btn-primary">Seen it!</button></td>
 					</tr>
 				</tbody>
 			</table>
@@ -38,15 +40,17 @@
 						<th>Genre</th>
 						<th>Betyg</th>
 						<th>År</th>
+						<th></th>
 					</tr>
 				</thead>
 				<tbody>
 					<tr ng-repeat="movie in vm.seen">
-						<td>{{movie.idx}}</td>
+						<td>{{movie.id}}</td>
 						<td>{{movie.name}}</td>
 						<td>{{movie.genre}}</td>
-						<td>{{movie.rating}}</td>
+						<td>{{movie.imdb_rating}}</td>
 						<td>{{movie.year}}</td>
+						<td>{{movie.my_rating}}</td>
 					</tr>
 				</tbody>
 			</table>

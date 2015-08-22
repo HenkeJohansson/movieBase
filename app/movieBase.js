@@ -19,7 +19,7 @@ movieBase.config(function($routeProvider, $locationProvider) {
 });
 
 
-movieBase.controller('homeCtrl', function($http) {
+movieBase.controller('homeCtrl', function($http, $modal) {
 	var home = this;
 
 	$http.get('api/getMovies.php?watched='+0).success(function(response) {
@@ -31,7 +31,46 @@ movieBase.controller('homeCtrl', function($http) {
 		home.seen = response;
 	});
 
+	home.openModal = function(size) {
+
+		var modalInstance = $modal.open({
+			animation: false,
+			templateUrl: 'pages/partials/movieModal.html',
+			controller: 'ModalInstanceCtrl',
+			controllerAs: 'modal',
+			size: 'lg'
+		});
+
+		modalInstance.result.then(function() {
+			home.modalResult = "Klickade OK";
+		}, function() {
+			home.modalResult = "Klickade Cancel";
+		});
+	};
+
+	home.extendedInfo = function(imdbID) {
+	
+	$http.get('api/getMovies.php?imdb_id='+imdbID).success(function(response) {
+		home.movieNfo = response;
+		console.log(home.movieNfo);
+	});
+
+	};
+
 });
+
+movieBase.controller('ModalInstanceCtrl', function($modalInstance) {
+	var modal = this;
+
+	modal.ok = function() {
+		$modalInstance.close();
+	};
+
+	modal.cancel = function() {
+		$modalInstance.dismiss('cancel');
+	};
+});
+
 
 movieBase.controller('omdbiCtrl', function($http) {
 	var omdbi = this;
@@ -74,6 +113,9 @@ movieBase.controller('omdbiCtrl', function($http) {
 			});
 	}
 
+	/***********************************************
+	** Save
+	***********************************************/
 	omdbi.save = function(imdbID) {
 		$http.get("http://www.omdbapi.com/?i=" + imdbID + "&plot=short&r=json").
 			success(function(response) {
@@ -104,15 +146,6 @@ movieBase.controller('omdbiCtrl', function($http) {
 					});
 			});
 	};
-
-
-
-	/***********************************************
-	** Add
-	***********************************************/
-
-	omdbi.fullMovieInfo = [];
-
 
 
 });

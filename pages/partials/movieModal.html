@@ -4,16 +4,30 @@
 		<h3 class="modal-title">{{vm.movieNfo.name}}</h3>
 	</div><!-- .modal-header -->
 	<div class="modal-body">
-		<img src="{{vm.movieNfo.imdb_poster}}" alt="">
-		<h2 class="">{{vm.movieNfo.name}}</h2>
-		<p>{{vm.movieInfo.genre}}</p>
-		<p>{{vm.movieInfo.year}}</p>
-		<p>{{vm.movieInfo.lenght}}</p>
-		<p>{{vm.movieInfo.imdb_rating}}</p>
-		<p>{{vm.movieNfo.plot}}</p>
+		<div class="col-xs-6 col-sm-4 container-poster">
+			<img src="{{vm.movieNfo.imdb_poster}}" class="poster img-responsive" alt="">
+		</div><!-- .container-poster -->
+		<div class="col-xs-6 col-sm-8">
+			<!-- <h2 class="">{{vm.movieNfo.name}}</h2> -->
+			<div class="col-xs-6">
+				<p class="genre"><span class="label label-primary">Genre:</span> {{vm.movieNfo.genre}}</p>
+				<p class="year"><span class="label label-primary">År:</span> {{vm.movieNfo.year}}</p>
+				<p class="length"><span class="label label-primary">Längd:</span> {{vm.movieNfo.length}} min</p>
+				<p class="imdb_rating"><span class="label label-primary">Imdb Betyg:</span> <span class="label label-success">{{vm.movieNfo.imdb_rating}}</span> <small>({{vm.movieNfo.imdb_votes}})</small></p>
+			</div><!-- -col-xs-6 -->
+			<div class="col-xs-6">
+				<p class="director"><span class="label label-primary">Director:</span> {{vm.movieNfo.director}}</p>
+				<p class="writes"><span class="label label-primary">Writer:</span> {{vm.movieNfo.writer}}</p>
+				<p class="actors"><span class="label label-primary">Actors:</span> {{vm.movieNfo.actors}}</p>
+			</div><!-- -col-xs-6 -->
+			<div class="col-xs-12">
+				<p class="plot">{{vm.movieNfo.plot}}</p>
+			</div><!-- .container-plot -->
+		</div><!-- .col-sm-8 -->
+		<div class="clearfix"></div>
 	</div><!-- .modal-body -->
 	<div class="modal-footer">
 		<button class="btn btn-danger" ng-click="vm.cancel()">Avbryt</button>
-		<button class="btn btn-success" ng-click="vm.ok()">Okej</button>
+		<button class="btn btn-success" ng-click="vm.ok()">Sett</button>
 	</div><!-- .modal-footer -->
 </div><!-- #movieModal -->

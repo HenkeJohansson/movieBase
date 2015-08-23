@@ -10,7 +10,6 @@
 			<table class="table">
 				<thead>
 					<tr>
-						<th>Idx</th>
 						<th>Namn</th>
 						<th>Genre</th>
 						<th>imdb Betyg</th>
@@ -19,8 +18,7 @@
 					</tr>
 				</thead>
 				<tbody>
-					<tr ng-repeat="movie in vm.unseen">
-						<td>{{movie.id}}</td>
+					<tr ng-repeat="movie in vm.unseen track by $index">
 						<td>{{movie.name}}</td>
 						<td>{{movie.genre}}</td>
 						<td>{{movie.imdb_rating}}</td>
@@ -35,7 +33,6 @@
 			<table class="table">
 				<thead>
 					<tr>
-						<th>Idx</th>
 						<th>Namn</th>
 						<th>Genre</th>
 						<th>imdb Betyg</th>
@@ -44,8 +41,7 @@
 					</tr>
 				</thead>
 				<tbody>
-					<tr ng-repeat="movie in vm.seen">
-						<td>{{movie.id}}</td>
+					<tr ng-repeat="movie in vm.seen track by $index">
 						<td>{{movie.name}}</td>
 						<td>{{movie.genre}}</td>
 						<td>{{movie.imdb_rating}}</td>

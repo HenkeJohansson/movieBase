@@ -25,7 +25,7 @@
 						<td>{{movie.genre}}</td>
 						<td>{{movie.imdb_rating}}</td>
 						<td>{{movie.year}}</td>
-						<td><button class="btn btn-primary" ng-click="vm.openModal(); vm.extendedInfo(movie.imdbID)">Seen it!</button></td>
+						<td><button class="btn btn-primary" ng-click="vm.openModal(movie.imdb_id)">Seen it!</button></td>
 					</tr>
 				</tbody>
 			</table>

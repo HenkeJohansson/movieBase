@@ -1,14 +1,19 @@
 
-<div>
+<div id="movieModal">
 	<div class="modal-header">
-		<h3 class="modal-title">Filmtitel</h3>
+		<h3 class="modal-title">{{vm.movieNfo.name}}</h3>
 	</div><!-- .modal-header -->
 	<div class="modal-body">
-		<h2 class="text-center">{{vm.movieNfo}}</h2>
-		<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Alias, ad.</p>
+		<img src="{{vm.movieNfo.imdb_poster}}" alt="">
+		<h2 class="">{{vm.movieNfo.name}}</h2>
+		<p>{{vm.movieInfo.genre}}</p>
+		<p>{{vm.movieInfo.year}}</p>
+		<p>{{vm.movieInfo.lenght}}</p>
+		<p>{{vm.movieInfo.imdb_rating}}</p>
+		<p>{{vm.movieNfo.plot}}</p>
 	</div><!-- .modal-body -->
 	<div class="modal-footer">
-		<button class="btn btn-success" ng-click="vm.ok()">Ok</button>
 		<button class="btn btn-danger" ng-click="vm.cancel()">Avbryt</button>
+		<button class="btn btn-success" ng-click="vm.ok()">Okej</button>
 	</div><!-- .modal-footer -->
 </div><!-- #movieModal -->

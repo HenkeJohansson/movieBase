@@ -4,14 +4,9 @@
 
 	$imdb_id = $_GET['imdb_id'];
 
-	$sql = "SELECT * FROM movies WHERE imdb_id = '$imdb_id'";
-	$result = $db->query($sql);
 
-	$movies = array();
 
-	foreach ($result as $row) {
-		array_push($movies, $row);
-	}
-
-	
-	echo json_encode($movies);
+		$statement = $db->prepare("SELECT * FROM movies WHERE imdb_id = ?");
+		$statement->execute([$imdb_id]);
+		$row = $statement->fetch(PDO::FETCH_ASSOC);
+		echo json_encode($row);

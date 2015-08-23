@@ -31,14 +31,19 @@ movieBase.controller('homeCtrl', function($http, $modal) {
 		home.seen = response;
 	});
 
-	home.openModal = function(size) {
+	home.openModal = function(imdb_id) {
 
 		var modalInstance = $modal.open({
 			animation: false,
 			templateUrl: 'pages/partials/movieModal.html',
 			controller: 'ModalInstanceCtrl',
-			controllerAs: 'modal',
-			size: 'lg'
+			controllerAs: 'vm',
+			size: 'lg',
+			resolve: {
+				imdb_id: function() {
+					return imdb_id;
+				}
+			}
 		});
 
 		modalInstance.result.then(function() {
@@ -48,19 +53,26 @@ movieBase.controller('homeCtrl', function($http, $modal) {
 		});
 	};
 
-	home.extendedInfo = function(imdbID) {
-	
-	$http.get('api/getMovies.php?imdb_id='+imdbID).success(function(response) {
-		home.movieNfo = response;
-		console.log(home.movieNfo);
-	});
-
-	};
 
 });
 
-movieBase.controller('ModalInstanceCtrl', function($modalInstance) {
+movieBase.controller('ModalInstanceCtrl', function($modalInstance, $http, imdb_id) {
 	var modal = this;
+
+	modal.text = 'Controllern funkar?';
+
+
+	modal.extendedInfo = function(imdb_id) {
+		console.log(imdb_id);
+	
+		$http.get('api/getMovieInfo.php?imdb_id='+imdb_id).success(function(response) {
+			modal.movieNfo = response;
+			console.log(modal.movieNfo);
+		});
+
+	};
+
+	modal.extendedInfo(imdb_id);
 
 	modal.ok = function() {
 		$modalInstance.close();

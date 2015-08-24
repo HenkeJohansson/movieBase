@@ -74,8 +74,12 @@ movieBase.controller('ModalInstanceCtrl', function($modalInstance, $http, imdb_i
 
 	modal.extendedInfo(imdb_id);
 
-	modal.ok = function() {
-		$modalInstance.close();
+	modal.ok = function(imdb_id) {
+		$http.post('api/updateMovie.php', {imdb_id: imdb_id}).success(function(response) {
+			console.log('Uppdaterat');
+			console.log(imdb_id);
+		});
+		console.log('watched() körs iaf');
 	};
 
 	modal.cancel = function() {
@@ -95,10 +99,10 @@ movieBase.controller('omdbiCtrl', function($http) {
 	omdbi.related = [];
 	omdbi.fullMovieInfo = {};
 
-	if (omdbi.search === undefined) {
-		omdbi.search = 'Star Wars: Episode IV - A New Hope';
-		fetch();
-	}
+	// if (omdbi.search === undefined) {
+	// 	omdbi.search = 'Star Wars: Episode IV - A New Hope';
+	// 	fetch();
+	// }
 
 
 	omdbi.change = function() {
@@ -109,7 +113,7 @@ movieBase.controller('omdbiCtrl', function($http) {
 	};
 
 	function fetch() {
-		$http.get("http://www.omdbapi.com/?s=" + omdbi.search + "&plot=short&r=json").
+		$http.get("http://www.omdbapi.com/?s=", omdbi.search + "&plot=short&r=json").
 			success(function(response) {
 				omdbi.details = response.Search;
 				// omdbi.details.length = 0;

@@ -35,7 +35,7 @@ movieBase.controller('homeCtrl', function($http, $modal) {
 
 		var modalInstance = $modal.open({
 			animation: false,
-			templateUrl: 'pages/partials/movieModal.html',
+			templateUrl: 'movieModal.html',
 			controller: 'ModalInstanceCtrl',
 			controllerAs: 'vm',
 			size: 'lg',
@@ -74,8 +74,16 @@ movieBase.controller('ModalInstanceCtrl', function($modalInstance, $http, imdb_i
 
 	modal.extendedInfo(imdb_id);
 
+	console.log(modal.rating);
+	modal.change = function($event) {
+		$timeout(function() {
+			console.log(modal.rating);
+		});
+	};
+
+
 	modal.ok = function(imdb_id) {
-		$http.post('api/updateMovie.php', {imdb_id: imdb_id}).success(function(response) {
+		$http.post('api/updateMovie.php', {imdb_id: imdb_id, my_rating: 8}).success(function(response) {
 			console.log('Uppdaterat');
 			console.log(imdb_id);
 		});

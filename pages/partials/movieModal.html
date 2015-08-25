@@ -20,10 +20,26 @@
 				<p class="writes"><span class="label label-primary">Writer:</span> {{vm.movieNfo.writer}}</p>
 				<p class="actors"><span class="label label-primary">Actors:</span> {{vm.movieNfo.actors}}</p>
 			</div><!-- -col-xs-6 -->
+			<hr>
 			<div class="col-xs-12">
 				<p class="plot">{{vm.movieNfo.plot}}</p>
 				<p class="id">{{vm.movieNfo.imdb_id}}</p>
-				<p>Hej funka då för i HELVETE!</p>
+				<h2>Betyg</h2>
+				<div class="stars">
+					<select ng-model="vm.rating" name="rating">
+						<option value="1">★☆☆☆☆☆☆☆☆☆</option>
+						<option value="2">★★☆☆☆☆☆☆☆☆</option>
+						<option value="3">★★★☆☆☆☆☆☆☆</option>
+						<option value="4">★★★★☆☆☆☆☆☆</option>
+						<option value="5">★★★★★☆☆☆☆☆</option>
+						<option value="6">★★★★★★☆☆☆☆</option>
+						<option value="7">★★★★★★★☆☆☆</option>
+						<option value="8">★★★★★★★★☆☆</option>
+						<option value="9">★★★★★★★★★☆</option>
+						<option value="10">★★★★★★★★★★</option>
+						option
+					</select>
+				</div>
 			</div><!-- .container-plot -->
 		</div><!-- .col-sm-8 -->
 		<div class="clearfix"></div>

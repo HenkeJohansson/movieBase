@@ -9,7 +9,8 @@
 	$plot = $data['plot'];
 	$year = $data['year'];
 	$imdb_id = $data['imdb_id'];
-	$imdb_poster = $data['imdb_poster'];
+	$movieDb_poster = $data['movieDb_poster'];
+	$movieDb_backdrop = $data['movieDb_backdrop'];
 	$imdb_rating = $data['imdb_rating'];
 	$imdb_votes = $data['imdb_votes'];
 	$length = $data['length'];
@@ -19,11 +20,11 @@
 	$actors = $data['actors'];
 	$watched = 0;
 
-	$sql = "INSERT INTO movies (name, name_original, plot, year, imdb_id, imdb_poster, imdb_rating, imdb_votes, length, genre, director, writer, actors, watched) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+	$sql = "INSERT INTO movies (name, name_original, plot, year, imdb_id, movieDb_poster, movieDb_backdrop, imdb_rating, imdb_votes, length, genre, director, writer, actors, watched) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
 
 	try {
 		$statement = $db->prepare($sql);
-		$statement->execute(array($name, $name_original, $plot, $year, $imdb_id, $imdb_poster, $imdb_rating, $imdb_votes, $length, $genre, $director, $writer, $actors, $watched));
+		$statement->execute(array($name, $name_original, $plot, $year, $imdb_id, $movieDb_poster, $movieDb_backdrop, $imdb_rating, $imdb_votes, $length, $genre, $director, $writer, $actors, $watched));
 	} catch(PDOException $e) {
 		echo 'Kunde inte lägga till film till databasen';
 		echo "Error $e";

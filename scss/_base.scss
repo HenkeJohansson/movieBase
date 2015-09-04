@@ -22,3 +22,33 @@
 .btn.rating {
 	width: 42px;
 }
+
+
+
+
+
+
+.modal-backdrop {
+	height: 100%;
+	background-color: rgba(0,0,0, .6);
+}
+
+#movieModal {
+	background-repeat: no-repeat;
+	background-position: center;
+	background-size: cover;
+}
+
+.modal-header {
+
+	h2 {
+		color: black;
+		-webkit-text-fill-color: white; /* Will override color (regardless of order) */
+		-webkit-text-stroke-width: 1px;
+		-webkit-text-stroke-color: black;
+	}
+}
+
+.in {
+	transition: 200ms;
+}

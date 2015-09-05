@@ -26,6 +26,6 @@
 		$statement = $db->prepare($sql);
 		$statement->execute(array($name, $name_original, $plot, $year, $imdb_id, $movieDb_poster, $movieDb_backdrop, $imdb_rating, $imdb_votes, $length, $genre, $director, $writer, $actors, $watched));
 	} catch(PDOException $e) {
-		echo 'Kunde inte lägga till film till databasen';
+		echo 'Kunde inte lägga till film till databasen<br>';
 		echo "Error $e";
 	}

@@ -135,15 +135,10 @@ movieBase.controller('movieApiCtrl', function($http) {
 		pendingTask = setTimeout(fetch, 800);
 	};
 
-	function fetch(movieDbKey) {
-		$http.get("http://www.omdbapi.com/?s=", movieApi.search + "&plot=short&r=json").
-			success(function(response) {
-				movieApi.related = response.Search;
-				// movieApi.details.length = 0;
-				// Array.prototype.push.apply(movieApi.details, response.Search);
-
-				//console.log(movieApi.related);
-			});
+	/***********************************************
+	** Fetch
+	***********************************************/
+	function fetch() {
 
 		$http.get("http://www.omdbapi.com/?s=" + movieApi.search).
 			success(function(response) {
@@ -155,9 +150,9 @@ movieBase.controller('movieApiCtrl', function($http) {
 				$http.get("http://api.themoviedb.org/3/find/" + imdb_idx + "?external_source=imdb_id&api_key=" + movieDbKey).
 					success(function(response){
 						console.log(response.movie_results);
-						movieApi.movieDb = response.movie_results[0];
-						console.log(movieApi.movieDb.backdrop_path);
-						console.log(movieApi.movieDb.poster_path);
+						// movieApi.movieDb = response.movie_results[0];
+						// console.log(movieApi.movieDb.backdrop_path);
+						// console.log(movieApi.movieDb.poster_path);
 					});
 			});
 	}
@@ -172,38 +167,46 @@ movieBase.controller('movieApiCtrl', function($http) {
 				console.log(movieApi.fullMovieInfo);
 				// Get poster and backdrop from movieDB
 				var movieDbKey =  '80082';
-				var poster_url = 'http://image.tmdb.org/t/p/w780/';
 				$http.get("http://api.themoviedb.org/3/find/" + movieApi.fullMovieInfo.imdbID + "?external_source=imdb_id&api_key=" + movieDbKey).
 					success(function(response) {
 						console.log(response.movie_results);
 						movieApi.movieDb = response.movie_results[0];
+						console.log(movieApi.movieDb);
+						console.log(movieApi.movieDb.poster_path);
 						console.log(movieApi.movieDb.backdrop_path);
+				
+						var movieAdd = {
+							name: movieApi.fullMovieInfo.Title,
+							name_original: movieApi.fullMovieInfo.Name_original,
+							plot: movieApi.fullMovieInfo.Plot,
+							year: movieApi.fullMovieInfo.Year,
+							imdb_id: movieApi.fullMovieInfo.imdbID,
+							movieDb_poster: movieApi.movieDb.poster_path,
+							movieDb_backdrop: movieApi.movieDb.backdrop_path,
+							imdb_rating: movieApi.fullMovieInfo.imdbRating,
+							imdb_votes: movieApi.fullMovieInfo.imdbVotes,
+							genre: movieApi.fullMovieInfo.Genre,
+							length: movieApi.fullMovieInfo.Runtime,
+							director: movieApi.fullMovieInfo.Director,
+							writer: movieApi.fullMovieInfo.Writer,
+							actors: movieApi.fullMovieInfo.Actors
+						};
+
+						$http.post("api/addMovie.php", movieAdd).
+							success(function() {
+								console.log('Film tillagd');
+								console.log(movieAdd.name);
+								console.log(movieAdd.movieDb_poster);
+								console.log(movieAdd.movieDb_backdrop);
+								// movieApi.movieDb = '';
+
+								movieApi.addAlert = function() {
+									movieApi.alerts.push({msg: 'Film tillagd'});
+								};
+							});
+					
 					});
 				// movieApi.insertMovie();
-				
-				var movieAdd = {
-					name: movieApi.fullMovieInfo.Title,
-					name_original: movieApi.fullMovieInfo.Name_original,
-					plot: movieApi.fullMovieInfo.Plot,
-					year: movieApi.fullMovieInfo.Year,
-					imdb_id: movieApi.fullMovieInfo.imdbID,
-					movieDb_poster: movieApi.movieDb.poster_path,
-					movieDb_backdrop: movieApi.movieDb.backdrop_path,
-					imdb_rating: movieApi.fullMovieInfo.imdbRating,
-					imdb_votes: movieApi.fullMovieInfo.imdbVotes,
-					genre: movieApi.fullMovieInfo.Genre,
-					length: movieApi.fullMovieInfo.Runtime,
-					director: movieApi.fullMovieInfo.Director,
-					writer: movieApi.fullMovieInfo.Writer,
-					actors: movieApi.fullMovieInfo.Actors
-				};
-
-				$http.post("api/addMovie.php", movieAdd).
-					success(function() {
-						movieApi.movieDb = '';
-						console.log('Film tillagd');
-						console.log(movieApi.fullMovieInfo.name);
-					});
 			});
 	};
 

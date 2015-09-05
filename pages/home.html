@@ -46,7 +46,7 @@
 						<td>{{movie.genre}}</td>
 						<td>{{movie.imdb_rating}}</td>
 						<td>{{movie.year}}</td>
-						<td><button class="btn btn-primary rating">{{movie.my_rating}}</button></td>
+						<td><button class="btn btn-primary" ng-click="vm.openModal(movie.imdb_id)">Info</button></td>
 					</tr>
 				</tbody>
 			</table>
@@ -82,7 +82,7 @@
 				<p class="id">{{vm.movieNfo.imdb_id}}</p>
 				<h2>Betyg</h2>
 				<div class="stars">
-					<select ng-model="vm.rating" name="rating">
+					<select ng-change="vm.my_rating()" name="rating">
 						<option value="1">★☆☆☆☆☆☆☆☆☆</option>
 						<option value="2">★★☆☆☆☆☆☆☆☆</option>
 						<option value="3">★★★☆☆☆☆☆☆☆</option>

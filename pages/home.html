@@ -60,10 +60,10 @@
 		<h2 class="modal-title">{{vm.movieNfo.name}}</h2>
 	</div><!-- .modal-header -->
 	<div class="modal-body" style="background-color: rgba(255,255,255, .8);">
-		<div class="col-xs-6 col-sm-4 container-poster">
+		<div class="col-xs-12 col-sm-4 container-poster">
 			<img ng-src="http://image.tmdb.org/t/p/w1280{{vm.movieNfo.movieDb_poster}}" class="poster img-responsive" alt="">
 		</div><!-- .container-poster -->
-		<div class="col-xs-6 col-sm-8">
+		<div class="col-xs-12 col-sm-8">
 			<!-- <h2 class="">{{vm.movieNfo.name}}</h2> -->
 			<div class="col-xs-6">
 				<p class="genre"><span class="label label-primary">Genre:</span> {{vm.movieNfo.genre}}</p>
@@ -82,7 +82,7 @@
 				<p class="id">{{vm.movieNfo.imdb_id}}</p>
 				<h2>Betyg</h2>
 				<div class="stars">
-					<select ng-change="vm.my_rating()" name="rating">
+					<select ng-model="vm.my_rating_val" ng-change="vm.my_rating(vm.my_rating_val)" name="rating">
 						<option value="1">★☆☆☆☆☆☆☆☆☆</option>
 						<option value="2">★★☆☆☆☆☆☆☆☆</option>
 						<option value="3">★★★☆☆☆☆☆☆☆</option>
@@ -96,6 +96,7 @@
 						option
 					</select>
 				</div>
+				<p>Rajting: {{vm.my_rating_val}}!</p>
 			</div><!-- .container-plot -->
 		</div><!-- .col-sm-8 -->
 		<div class="clearfix"></div>

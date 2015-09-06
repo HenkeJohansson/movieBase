@@ -92,7 +92,10 @@ movieBase.controller('ModalInstanceCtrl', function($modalInstance, $http, imdb_i
 		});
 	};
 
-	my_rating = function() {};
+	modal.my_rating = function(value) {
+		console.log("rating has changed");
+		console.log(modal.my_rating_val);
+	};
 
 	// modal.my_rating = {};
 

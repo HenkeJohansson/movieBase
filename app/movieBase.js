@@ -22,25 +22,21 @@ movieBase.config(function($routeProvider, $locationProvider) {
 movieBase.controller('homeCtrl', function($http, $modal) {
 	var home = this;
 
-	var poster_base_url = 'http://image.tmdb.org/t/p/',
-		poster_img_size = 'w1280',
-		poster_path = poster_base_url + poster_img_size;
-	home.posterPath = poster_path;
+	home.updateLists = function() {
 
-	var backdrop_base_url = 'http://image.tmdb.org/t/p/',
-		backdrop_img_size = 'w500',
-		backgrop_path = backdrop_base_url + backdrop_img_size;
-	home.backgropPath = backgrop_path;
+		$http.get('api/getMovies.php?watched='+0).success(function(response) {
+			home.unseen = response;
+			console.log(response);
+		});
 
-	$http.get('api/getMovies.php?watched='+0).success(function(response) {
-		home.unseen = response;
-		console.log(response);
-	});
+		$http.get('api/getMovies.php?watched='+1).success(function(response) {
+			home.seen = response;
+			console.log(response);
+		});
 
-	$http.get('api/getMovies.php?watched='+1).success(function(response) {
-		home.seen = response;
-		console.log(response);
-	});
+	};
+
+	home.updateLists();
 
 	home.openModal = function(imdb_id) {
 
@@ -59,6 +55,7 @@ movieBase.controller('homeCtrl', function($http, $modal) {
 
 		modalInstance.result.then(function() {
 			home.modalResult = "Klickade OK";
+			home.updateLists();
 		}, function() {
 			home.modalResult = "Klickade Cancel";
 		});
@@ -95,16 +92,25 @@ movieBase.controller('ModalInstanceCtrl', function($modalInstance, $http, imdb_i
 	modal.my_rating = function(value) {
 		console.log("rating has changed");
 		console.log(modal.my_rating_val);
+		$http.post('api/rateMovie.php', {
+			my_rating: modal.my_rating_val,
+			imdb_id: imdb_id
+		}).success(function(response) {
+			console.log('Filmens betyg:' + modal.my_rating_val);
+		});
 	};
 
 	// modal.my_rating = {};
 
 	modal.ok = function(imdb_id) {
-		$http.post('api/updateMovie.php', {imdb_id: imdb_id, my_rating: my_rating}).success(function(response) {
+		$http.post('api/updateMovie.php', {
+					imdb_id: imdb_id,
+					my_rating: modal.my_rating_val
+		}).success(function(response) {
 			console.log('Uppdaterat');
 			console.log(imdb_id);
 		});
-		console.log('watched() körs iaf');
+		$modalInstance.close();
 	};
 
 	modal.cancel = function() {
@@ -203,14 +209,27 @@ movieBase.controller('movieApiCtrl', function($http) {
 								console.log(movieAdd.movieDb_backdrop);
 								// movieApi.movieDb = '';
 
-								movieApi.addAlert = function() {
-									movieApi.alerts.push({msg: 'Film tillagd'});
-								};
+								movieApi.addAlert();
 							});
 					
 					});
 				// movieApi.insertMovie();
+			}).fail(function(response) {
+				// movieApi.addAlert();
 			});
+	};
+
+	/***********************************************
+	** Alerts
+	***********************************************/
+	movieApi.alerts = [];
+
+	movieApi.addAlert = function() {
+		movieApi.alerts.push({ type: 'success', msg: 'Film tillagd till osedda.' });
+	};
+
+	movieApi.closeAlert = function(index) {
+		movieApi.alerts.splice(index, 1);
 	};
 
 

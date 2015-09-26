@@ -155,9 +155,9 @@ movieBase.controller('movieApiCtrl', function($http) {
 				console.log(movieApi.details);
 				var imdb_idx = movieApi.details[0].imdbID;
 
-				var movieDbKey =  '80082';
+				var movieDbKey =  '';
 				$http.get("http://api.themoviedb.org/3/find/" + imdb_idx + "?external_source=imdb_id&api_key=" + movieDbKey).
-					success(function(response){
+					success(function(response) {
 						console.log(response.movie_results);
 						// movieApi.movieDb = response.movie_results[0];
 						// console.log(movieApi.movieDb.backdrop_path);
@@ -175,7 +175,7 @@ movieBase.controller('movieApiCtrl', function($http) {
 				movieApi.fullMovieInfo = response;
 				console.log(movieApi.fullMovieInfo);
 				// Get poster and backdrop from movieDB
-				var movieDbKey =  '80082';
+				var movieDbKey =  '';
 				$http.get("http://api.themoviedb.org/3/find/" + movieApi.fullMovieInfo.imdbID + "?external_source=imdb_id&api_key=" + movieDbKey).
 					success(function(response) {
 						console.log(response.movie_results);

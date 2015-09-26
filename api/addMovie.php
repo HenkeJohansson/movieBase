@@ -20,12 +20,24 @@
 	$actors = $data['actors'];
 	$watched = 0;
 
-	$sql = "INSERT INTO movies (name, name_original, plot, year, imdb_id, movieDb_poster, movieDb_backdrop, imdb_rating, imdb_votes, length, genre, director, writer, actors, watched) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+	$sql_search = "SELECT imdb_id FROM movies WHERE imdb_id = ?";
 
-	try {
-		$statement = $db->prepare($sql);
-		$statement->execute(array($name, $name_original, $plot, $year, $imdb_id, $movieDb_poster, $movieDb_backdrop, $imdb_rating, $imdb_votes, $length, $genre, $director, $writer, $actors, $watched));
-	} catch(PDOException $e) {
-		echo 'Kunde inte lägga till film till databasen<br>';
-		echo "Error $e";
+	$statement = $db->prepare($sql_search);
+	$statement->execute(array($imdb_id));
+	$imdb_id_check = $statement->fetchColumn();
+
+	if ($imdb_id_check === false) {
+
+		$sql_insert = "INSERT INTO movies (name, name_original, plot, year, imdb_id, movieDb_poster, movieDb_backdrop, imdb_rating, imdb_votes, length, genre, director, writer, actors, watched) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+
+		try {
+			$statement = $db->prepare($sql_insert);
+			$statement->execute(array($name, $name_original, $plot, $year, $imdb_id, $movieDb_poster, $movieDb_backdrop, $imdb_rating, $imdb_votes, $length, $genre, $director, $writer, $actors, $watched));
+		} catch(PDOException $e) {
+			echo 'Kunde inte lägga till film till databasen<br>';
+			echo "Error $e";
+		}
+
+	} else {
+		echo json_encode("Filmen finns redan i databasen");
 	}

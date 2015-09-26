@@ -7,7 +7,7 @@
 
 	try {
 		$statement = $db->prepare("SELECT * FROM movies WHERE watched = ?");
-		$statement->execute([$watched]);
+		$statement->execute(array($watched));
 		$rows = $statement->fetchAll(PDO::FETCH_ASSOC);
 		echo json_encode($rows);
 	} catch(PDOException $e) {

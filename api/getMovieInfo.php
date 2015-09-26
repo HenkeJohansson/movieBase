@@ -7,7 +7,7 @@
 
 	try {
 		$statement = $db->prepare("SELECT * FROM movies WHERE imdb_id = ?");
-		$statement->execute([$imdb_id]);
+		$statement->execute(array($imdb_id));
 		$row = $statement->fetch(PDO::FETCH_ASSOC);
 		echo json_encode($row);
 	} catch(PDOException $e) {

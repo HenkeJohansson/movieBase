@@ -67,9 +67,6 @@ movieBase.controller('homeCtrl', function($http, $modal) {
 movieBase.controller('ModalInstanceCtrl', function($modalInstance, $http, imdb_id) {
 	var modal = this;
 
-	modal.text = 'Controllern funkar?';
-
-
 	modal.extendedInfo = function(imdb_id) {
 		console.log(imdb_id);
 	
@@ -210,12 +207,17 @@ movieBase.controller('movieApiCtrl', function($http) {
 								// movieApi.movieDb = '';
 
 								movieApi.addAlert();
+							}).
+							error(function(response) {
+								movieApi.failInsertAlert();
+								
 							});
 					
 					});
 				// movieApi.insertMovie();
-			}).fail(function(response) {
-				// movieApi.addAlert();
+			}).
+			error(function(response) {
+				//...
 			});
 	};
 
@@ -226,6 +228,10 @@ movieBase.controller('movieApiCtrl', function($http) {
 
 	movieApi.addAlert = function() {
 		movieApi.alerts.push({ type: 'success', msg: 'Film tillagd till osedda.' });
+	};
+
+	movieApi.failInsertAlert = function() {
+		movieApi.alerts.push({ type: 'danger', msg: 'Filmen fanns redan i databasen.' });
 	};
 
 	movieApi.closeAlert = function(index) {

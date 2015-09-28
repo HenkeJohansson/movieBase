@@ -73,9 +73,10 @@
 /*******************************************
 **					Index
 *******************************************/
-// html, body {
-// 	height: 100vh;
-// }
+html, body {
+	height: 100vh;
+	overflow: hidden;
+}
 
 
 /*******************************************
@@ -83,15 +84,15 @@
 *******************************************/
 
 
-// header {
-// 	height: 20vh;
-// }
+header {
+	height: 15vh;
+}
 
-// #lists {
-// 	height: 80vh;
+#lists {
+	height: 80vh;
 
-// 	.list {
-// 		height: 80vh;
-// 		overflow-y: scroll;
-// 	}
-// }
+	.list {
+		height: 80vh;
+		overflow-y: scroll;
+	}
+}

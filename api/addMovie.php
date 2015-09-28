@@ -39,5 +39,6 @@
 		}
 
 	} else {
-		echo json_encode("Filmen finns redan i databasen");
+		http_response_code(409);
+		json_encode(array('error' => 'Filmen fanns redan i databasen'));
 	}

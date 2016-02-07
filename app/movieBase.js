@@ -151,28 +151,25 @@ movieBase.controller('movieApiCtrl', function($http) {
 				movieApi.details = response.Search;
 				console.log(movieApi.details);
 				var imdb_idx,
-					obj_idx,
+					movie_plot,
 					poster_path;
 
-				for ( var i = 0; i < movieApi.details.length; i++ ) {
-					imdb_idx = movieApi.details[i].imdbID;
-					obj_idx = i;
+				movieApi.details.forEach(function(movie) {
+					imdb_idx = movie.imdbID;
 
-					(function(obj_idx) {
-						var movieDbKey =  '';
-						$http.get("http://api.themoviedb.org/3/find/" + imdb_idx + "?external_source=imdb_id&api_key=" + movieDbKey).
-							success(function(response2) {
-								poster_path = response2.movie_results[0].poster_path;
-								movie_plot = response2.movie_results[0].overview;
-								console.log(poster_path);
-								
-								console.log(response2.movie_results[0]);
+					var movieDbKey =  '';
+					$http.get("http://api.themoviedb.org/3/find/" + imdb_idx + "?external_source=imdb_id&api_key=" + movieDbKey).
+						success(function(response2) {
+							poster_path = response2.movie_results[0].poster_path;
+							movie_plot = response2.movie_results[0].overview;
+							console.log(poster_path);
+							
+							console.log(response2.movie_results[0]);
 
-								movieApi.details[obj_idx].poster_path = poster_path;
-								movieApi.details[obj_idx].plot = movie_plot;
-							});
-					})(i);
-				}
+							movie.poster_path = poster_path;
+							movie.plot = movie_plot;
+						});
+				});
 
 			});
 	}

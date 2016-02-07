@@ -20,9 +20,10 @@
 	<div class="container-fluid">
 		<div class="row">
 			<div class="col-12-xs">
-				<table class="table">
+				<table class="table table-search">
 					<thead>
 						<tr>
+							<th></th>
 							<th>Titel</th>
 							<th>År</th>
 							<th>Typ</th>
@@ -31,10 +32,13 @@
 					</thead>
 					<tbody>
 						<tr ng-repeat="movie in vm.details">
-							<td><a href="http://www.imdb.com/title/{{movie.imdbID}}" target="_blank">{{movie.Title}}</a></td>
-							<td>{{movie.Year}}</td>
-							<td>{{movie.Type}}</td>
-							<td><button class="btn btn-primary" ng-click="vm.save(movie.imdbID)">Lägg Till</button></td>
+							<td class="search-poster"><img src="//image.tmdb.org/t/p/w185{{movie.poster_path}}" alt=""></td>
+							<td class="search-name">
+								<a href="http://www.imdb.com/title/{{movie.imdbID}}" target="_blank"><h3>{{movie.Title}}</h3></a>
+							</td>
+							<td class="search-year">{{movie.Year}}</td>
+							<td class="search-type">{{movie.Type}}</td>
+							<td class="search-add"><button class="btn btn-primary" ng-click="vm.save(movie.imdbID)">Lägg Till</button></td>
 						</tr>
 					</tbody>
 				</table>

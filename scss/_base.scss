@@ -74,8 +74,8 @@
 **					Index
 *******************************************/
 html, body {
-	height: 100vh;
-	overflow: hidden;
+	// height: 100vh;
+	// overflow: hidden;
 }
 
 
@@ -94,5 +94,20 @@ header {
 	.list {
 		height: 80vh;
 		overflow-y: scroll;
+	}
+}
+
+/*******************************************
+**					Movie Search
+*******************************************/
+
+table.table-search {
+	overflow: scroll;
+
+	.search-poster {
+
+		img {
+			max-height: 100px;
+		}
 	}
 }

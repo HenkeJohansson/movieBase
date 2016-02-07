@@ -150,16 +150,30 @@ movieBase.controller('movieApiCtrl', function($http) {
 			success(function(response) {
 				movieApi.details = response.Search;
 				console.log(movieApi.details);
-				var imdb_idx = movieApi.details[0].imdbID;
+				var imdb_idx,
+					obj_idx,
+					poster_path;
 
-				var movieDbKey =  '';
-				$http.get("http://api.themoviedb.org/3/find/" + imdb_idx + "?external_source=imdb_id&api_key=" + movieDbKey).
-					success(function(response) {
-						console.log(response.movie_results);
-						// movieApi.movieDb = response.movie_results[0];
-						// console.log(movieApi.movieDb.backdrop_path);
-						// console.log(movieApi.movieDb.poster_path);
-					});
+				for ( var i = 0; i < movieApi.details.length; i++ ) {
+					imdb_idx = movieApi.details[i].imdbID;
+					obj_idx = i;
+
+					(function(obj_idx) {
+						var movieDbKey =  '';
+						$http.get("http://api.themoviedb.org/3/find/" + imdb_idx + "?external_source=imdb_id&api_key=" + movieDbKey).
+							success(function(response2) {
+								poster_path = response2.movie_results[0].poster_path;
+								movie_plot = response2.movie_results[0].overview;
+								console.log(poster_path);
+								
+								console.log(response2.movie_results[0]);
+
+								movieApi.details[obj_idx].poster_path = poster_path;
+								movieApi.details[obj_idx].plot = movie_plot;
+							});
+					})(i);
+				}
+
 			});
 	}
 

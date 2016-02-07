@@ -9,6 +9,11 @@ movieBase.config(function($routeProvider, $locationProvider) {
 			controller 	: 'homeCtrl',
 			controllerAs : 'vm'
 		})
+		.when('/watchlist', {
+			templateUrl : 'pages/watchlist.html',
+			controller 	: 'watchlistCtrl',
+			controllerAs : 'vm'
+		})
 		.when('/addMovie', {
 			templateUrl : 'pages/addMovie.html',
 			controller 	: 'movieApiCtrl',
@@ -19,26 +24,46 @@ movieBase.config(function($routeProvider, $locationProvider) {
 });
 
 
-movieBase.controller('homeCtrl', function($http, $modal) {
+movieBase.controller('homeCtrl', function($http) {
 	var home = this;
 
-	home.updateLists = function() {
+	home.getPosters = function() {
 
-		$http.get('api/getMovies.php?watched='+0).success(function(response) {
-			home.unseen = response;
-			console.log(response);
-		});
-
-		$http.get('api/getMovies.php?watched='+1).success(function(response) {
-			home.seen = response;
+		$http.get('api/getPosters.php').success(function(response) {
+			home.posters = response;
 			console.log(response);
 		});
 
 	};
 
-	home.updateLists();
+	home.random = function() {
+        return 0.5 - Math.random();
+    };
 
-	home.openModal = function(imdb_id) {
+	home.getPosters();
+
+});
+
+movieBase.controller('watchlistCtrl', function($http, $modal) {
+	var watchlist = this;
+
+	watchlist.updateLists = function() {
+
+		$http.get('api/getMovies.php?watched='+0).success(function(response) {
+			watchlist.unseen = response;
+			console.log(response);
+		});
+
+		$http.get('api/getMovies.php?watched='+1).success(function(response) {
+			watchlist.seen = response;
+			console.log(response);
+		});
+
+	};
+
+	watchlist.updateLists();
+
+	watchlist.openModal = function(imdb_id) {
 
 		var modalInstance = $modal.open({
 			animation: false,
@@ -54,10 +79,10 @@ movieBase.controller('homeCtrl', function($http, $modal) {
 		});
 
 		modalInstance.result.then(function() {
-			home.modalResult = "Klickade OK";
-			home.updateLists();
+			watchlist.modalResult = "Klickade OK";
+			watchlist.updateLists();
 		}, function() {
-			home.modalResult = "Klickade Cancel";
+			watchlist.modalResult = "Klickade Cancel";
 		});
 	};
 

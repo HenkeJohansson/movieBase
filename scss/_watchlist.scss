@@ -1,0 +1,22 @@
+/*******************************************
+**					Watchlist
+*******************************************/
+
+
+header {
+	height: 15vh;
+}
+
+
+@media (min-width: 996px) {
+	
+	#lists {
+		height: 80vh;
+
+		.list {
+			height: 80vh;
+			overflow-y: scroll;
+		}
+	}
+
+}

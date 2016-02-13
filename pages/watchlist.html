@@ -2,60 +2,62 @@
 
 	<header>
 		<h1 class="text-center">Movie Base</h1>
-		<div class="col-md-6">
-			<h2 class="text-center">Osedda</h2>
-		</div>
-		<div class="col-md-6">
-			<h2 class="text-center">Sedda</h2>
-		</div>
 	</header>
 	<section id="lists">
-		<div class="row">
-			<div id="list-unseen" class="col-xs-12 col-md-6 list">
-				<table class="table">
-					<thead>
-						<tr>
-							<th>Namn</th>
-							<th>Genre</th>
-							<th>imdb Betyg</th>
-							<th>År</th>
-							<th></th>
-						</tr>
-					</thead>
-					<tbody>
-						<tr ng-repeat="movie in vm.unseen track by $index">
-							<td>{{movie.name}}</td>
-							<td>{{movie.genre}}</td>
-							<td>{{movie.imdb_rating}}</td>
-							<td>{{movie.year}}</td>
-							<td><button class="btn btn-primary" ng-click="vm.openModal(movie.imdb_id)">Info</button></td>
-						</tr>
-					</tbody>
-				</table>
-			</div><!-- #list-unseen -->
-			<div id="list-seen" class="col-xs-12 col-md-6 list">
-				<table class="table">
-					<thead>
-						<tr>
-							<th>Namn</th>
-							<th>Genre</th>
-							<th>Mitt Betyg</th>
-							<th>År</th>
-							<th>Mitt Betyg</th>
-						</tr>
-					</thead>
-					<tbody>
-						<tr ng-repeat="movie in vm.seen track by $index">
-							<td>{{movie.name}}</td>
-							<td>{{movie.genre}}</td>
-							<td>{{movie.my_rating}}</td>
-							<td>{{movie.year}}</td>
-							<td><button class="btn btn-primary" ng-click="vm.openModal(movie.imdb_id)">Info</button></td>
-						</tr>
-					</tbody>
-				</table>
-			</div><!-- #list-seen -->
-		</div><!-- .row -->
+		<div class="container-fluid">
+			<div class="row">
+				<div id="list-unseen" class="col-xs-12 col-md-6 list">
+					<div class="col-md-12">
+						<h2 class="text-center">Osedda</h2>
+					</div>
+					<table class="table">
+						<thead>
+							<tr>
+								<th>Namn</th>
+								<th>Genre</th>
+								<th>imdb Betyg</th>
+								<th>År</th>
+								<th></th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr ng-repeat="movie in vm.unseen track by $index" id="{{movie.imdb_id}}">
+								<td>{{movie.name}}</td>
+								<td>{{movie.genre}}</td>
+								<td>{{movie.imdb_rating}}</td>
+								<td>{{movie.year}}</td>
+								<td><button class="btn btn-primary" ng-click="vm.openModal(movie.imdb_id)">Info</button></td>
+							</tr>
+						</tbody>
+					</table>
+				</div><!-- #list-unseen -->
+				<div id="list-seen" class="col-xs-12 col-md-6 list">
+					<div class="col-md-12">
+						<h2 class="text-center">Sedda</h2>
+					</div>
+					<table class="table">
+						<thead>
+							<tr>
+								<th>Namn</th>
+								<th>Genre</th>
+								<th>Mitt Betyg</th>
+								<th>År</th>
+								<th>Mitt Betyg</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr ng-repeat="movie in vm.seen track by $index">
+								<td>{{movie.name}}</td>
+								<td>{{movie.genre}}</td>
+								<td>{{movie.my_rating}}</td>
+								<td>{{movie.year}}</td>
+								<td><button class="btn btn-primary" ng-click="vm.openModal(movie.imdb_id)">Info</button></td>
+							</tr>
+						</tbody>
+					</table>
+				</div><!-- #list-seen -->
+			</div><!-- .row -->
+		</div><!-- .container-fluid -->
 	</section><!-- #lists -->
 
 <script type="text/ng-template" id="movieModal.html">

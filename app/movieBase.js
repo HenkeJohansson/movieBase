@@ -60,8 +60,61 @@ movieBase.controller('watchlistCtrl', function($http, $modal) {
 		});
 
 	};
-
 	watchlist.updateLists();
+
+	watchlist.updateMovies = function() {
+
+		var wait = 0;
+
+		/**
+		
+			TODO:
+			- Update movie length
+			- Update all info maybe?
+			- Do Update every seveen days
+		
+		 */
+
+		$http.get('api/updateMovieInfo.php')
+			.success(function(response) {
+				// console.log('My DB');
+
+				watchlist.imdb_ids = response;
+
+				watchlist.imdb_ids.forEach(function(movie) {
+					movie.updateInfo = {};
+					setTimeout(function() {
+					
+						$http.get('http://www.omdbapi.com/?i=' + movie.imdb_id + '&plot=full&r=json')
+							.success(function(response) {
+								// console.log('OMDB-API');
+								movie.updateInfo.imdb_rating = response.imdbRating;
+								movie.updateInfo.imdb_votes = response.imdbVotes;
+
+								var movieDbKey =  '';
+									$http.get('http://api.themoviedb.org/3/find/' + movie.imdb_id + '?external_source=imdb_id&api_key=' + movieDbKey)
+										.success(function(response2) {
+											console.log('movie-object');
+											movie.updateInfo.poster = response2.movie_results[0].poster_path;
+											movie.updateInfo.backdrop = response2.movie_results[0].backdrop_path;
+											console.log(movie.updateInfo.poster);
+											console.log(movie.updateInfo.backdrop);
+
+											$http.post('api/updateMovieInfo.php', movie)
+												.success(function(response3) {
+													console.log(response3);
+												});
+
+										});
+
+							});
+					},wait);
+					wait += 500;
+				});
+			});
+
+	};
+	// watchlist.updateMovies();
 
 	watchlist.openModal = function(imdb_id) {
 
@@ -171,7 +224,7 @@ movieBase.controller('movieApiCtrl', function($http) {
 	***********************************************/
 	function fetch() {
 
-		$http.get("http://www.omdbapi.com/?s=" + movieApi.search).
+		$http.get('http://www.omdbapi.com/?s=' + movieApi.search).
 			success(function(response) {
 				movieApi.details = response.Search;
 				console.log(movieApi.details);
@@ -183,7 +236,7 @@ movieBase.controller('movieApiCtrl', function($http) {
 					imdb_idx = movie.imdbID;
 
 					var movieDbKey =  '';
-					$http.get("http://api.themoviedb.org/3/find/" + imdb_idx + "?external_source=imdb_id&api_key=" + movieDbKey).
+					$http.get('http://api.themoviedb.org/3/find/' + imdb_idx + '?external_source=imdb_id&api_key=' + movieDbKey).
 						success(function(response2) {
 							poster_path = response2.movie_results[0].poster_path;
 							movie_plot = response2.movie_results[0].overview;
@@ -203,13 +256,13 @@ movieBase.controller('movieApiCtrl', function($http) {
 	** Save
 	***********************************************/
 	movieApi.save = function(imdbID) {
-		$http.get("http://www.omdbapi.com/?i=" + imdbID + "&plot=short&r=json").
+		$http.get('http://www.omdbapi.com/?i=' + imdbID + '&plot=short&r=json').
 			success(function(response) {
 				movieApi.fullMovieInfo = response;
 				console.log(movieApi.fullMovieInfo);
 				// Get poster and backdrop from movieDB
 				var movieDbKey =  '';
-				$http.get("http://api.themoviedb.org/3/find/" + movieApi.fullMovieInfo.imdbID + "?external_source=imdb_id&api_key=" + movieDbKey).
+				$http.get('http://api.themoviedb.org/3/find/' + movieApi.fullMovieInfo.imdbID + '?external_source=imdb_id&api_key=' + movieDbKey).
 					success(function(response) {
 						console.log(response.movie_results);
 						movieApi.movieDb = response.movie_results[0];
@@ -234,7 +287,7 @@ movieBase.controller('movieApiCtrl', function($http) {
 							actors: movieApi.fullMovieInfo.Actors
 						};
 
-						$http.post("api/addMovie.php", movieAdd).
+						$http.post('api/addMovie.php', movieAdd).
 							success(function() {
 								console.log('Film tillagd');
 								console.log(movieAdd.name);

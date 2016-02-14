@@ -1,6 +1,19 @@
 <!-- home.html -->
 <div class="container-full container-home">
 
+	<div class="background-home">
 		<img ng-repeat="poster in vm.posters | orderBy:vm.random" src="//image.tmdb.org/t/p/w185{{poster.movieDb_poster}}" alt="" class="poster-home">
+	</div><!-- .background-home -->
+
+	<header class="header-home">
+		<h1 class="text-center title">Movebase</h1>
+	</header>
+
+	<div class="container-buttons">
+		<button class="btn btn-default"><a href="/">Hem</a></button>
+		<button class="btn btn-default"><a href="/watchlist">Listorna</a></button>
+		<button class="btn btn-default"><a href="addMovie">Lägg till Film</a></button>
+	</div><!-- .container-buttons -->
+
 
 </div><!-- .container-full -->

@@ -3,6 +3,33 @@
 	clear: both;
 }
 
+
+/*******************************************
+**					TYpography
+*******************************************/
+
+h1, h2, h3, h4, h5, h6 {
+	font-family: 'Righteous', cursive;
+	text-transform: uppercase;
+}
+
+p, span, th, td {
+	font-family: 'Orienta', sans-serif;
+}
+
+a {
+	font-family: 'Righteous', cursive;
+	text-transform: uppercase;
+}
+
+h1.title {
+	color: rgba(255,255,255, .8);
+	font-size: 52px;
+	-webkit-text-fill-color: white; /* Will override color (regardless of order) */
+	-webkit-text-stroke-width: 1px;
+	-webkit-text-stroke-color: black;
+}
+
 /*******************************************
 **					Buttons
 *******************************************/
@@ -78,11 +105,31 @@ html, body {
 }
 
 
+/*******************************************
+**					Headers
+*******************************************/
+header {
+	height: 15vh;
+
+
+	h1 {
+		z-index: 10;
+		position: absolute;
+		top: 50%;
+		left: 50%;
+		transform: translate(-50%, -50%);
+		margin: 0;
+	}
+}
 
 
 /*******************************************
 **					Movie Search
 *******************************************/
+
+.content {
+	margin-top: 40px;
+}
 
 table.table-search {
 	overflow: scroll;

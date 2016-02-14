@@ -1,14 +1,17 @@
 <!-- watchlist.html -->
 
 	<header>
-		<h1 class="text-center">Movie Base</h1>
+		<h1 class="text-center title">Watchlist</h1>
+		<div class="background-header">
+			<img ng-repeat="poster in vm.posters track by $index | orderBy:vm.random" src="//image.tmdb.org/t/p/w185{{poster.movieDb_poster}}" alt="" class="poster-header">
+		</div><!-- .background-header -->
 	</header>
 	<section id="lists">
 		<div class="container-fluid">
 			<div class="row">
 				<div id="list-unseen" class="col-xs-12 col-md-6 list">
 					<div class="col-md-12">
-						<h2 class="text-center">Osedda</h2>
+						<h2 ng-click="vm.updateMovies()" class="text-center">Osedda</h2>
 					</div>
 					<table class="table">
 						<thead>

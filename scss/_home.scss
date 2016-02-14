@@ -19,8 +19,72 @@ img.poster-home {
 	background-color: black;
 }
 
-@media (min-width: 996px) {
+header {
+
+	.title {
+		font-size: 72px;
+	}
+}
+
+.container-buttons {
+	// border: 1px solid black;
+	position: absolute;
+	top: 50%;
+	transform: translateY(-50%);
+	width: 100%;
+
+	button {
+		display: block;
+		margin: 0 auto;
+		margin-bottom: 20px;
+		font-size: 24px;
+		color: black;
+		background-color: rgba(255,255,255, .8);
+		width: 70%;
+
+		a {
+			color: black;
+			&:hover {
+				text-decoration: none;
+			}
+		}
+	}
+}
+
+@media all and (min-width: 996px) {
 	img.poster-home {
 		width: 10%;
+	}
+
+	header.header-home {
+
+		.title {
+			font-size: 92px;
+		}
+	}
+
+	.container-buttons {
+
+		button {
+			width: 40%;
+		}
+	}
+}
+
+@media all and (min-width: 1201px) {
+
+	header.header-home {
+		height: 30vh;
+
+		.title {
+			font-size: 112px;
+		}
+	}
+
+	.container-buttons {
+
+		button {
+			width: 20%;
+		}
 	}
 }

@@ -24,27 +24,56 @@ movieBase.config(function($routeProvider, $locationProvider) {
 });
 
 
-movieBase.controller('homeCtrl', function($http) {
-	var home = this;
+movieBase.factory('postersBackground', ['$http', function ($http) {
 
-	home.getPosters = function() {
+	var posters = {};
 
-		$http.get('api/getPosters.php').success(function(response) {
-			home.posters = response;
-			console.log(response);
+	posters.fetchContent = function () {
+		return $http({
+			method: 'GET',
+			url: 'api/getPosters.php',
+		}).then(function success(response) {
+			
+			function shuffle(array) {
+				var currentIndex = array.length, temporaryValue, randomIndex;
+
+				while (0 !== currentIndex) {
+
+					randomIndex = Math.floor(Math.random() * currentIndex);
+					currentIndex -= 1;
+
+					temporaryValue = array[currentIndex];
+					array[currentIndex] = array[randomIndex];
+					array[randomIndex] = temporaryValue;
+				}
+
+				return array;
+
+			}
+			shuffle(response.data);
+			return response.data;
+
 		});
 
 	};
 
-	home.random = function() {
-        return 0.5 - Math.random();
-    };
+	return posters;
 
-	home.getPosters();
+}]);
+
+
+movieBase.controller('homeCtrl', function($http, postersBackground) {
+	var home = this;
+
+	postersBackground.fetchContent().then(function success(response) {
+		home.posters = response;
+	}, function fail() {
+
+	});
 
 });
 
-movieBase.controller('watchlistCtrl', function($http, $modal) {
+movieBase.controller('watchlistCtrl', function($http, $modal, postersBackground) {
 	var watchlist = this;
 
 	watchlist.updateLists = function() {
@@ -115,6 +144,14 @@ movieBase.controller('watchlistCtrl', function($http, $modal) {
 
 	};
 	// watchlist.updateMovies();
+
+
+	postersBackground.fetchContent().then(function success(response) {
+		watchlist.posters = response;
+	}, function fail() {
+
+	});
+
 
 	watchlist.openModal = function(imdb_id) {
 
@@ -194,8 +231,14 @@ movieBase.controller('ModalInstanceCtrl', function($modalInstance, $http, imdb_i
 });
 
 
-movieBase.controller('movieApiCtrl', function($http) {
+movieBase.controller('movieApiCtrl', function($http, postersBackground) {
 	var movieApi = this;
+
+	postersBackground.fetchContent().then(function success(response) {
+		movieApi.posters = response;
+	}, function fail() {
+
+	});
 
 	/***********************************************
 	** Search

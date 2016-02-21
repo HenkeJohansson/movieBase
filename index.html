@@ -3,7 +3,7 @@
 <head>
 	<meta charset="UTF-8">
 	<title>Movie Base</title>
-	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
 	<base href="/">
 	<!-- Stylesheets -->
 	<link rel="stylesheet" href="css/bootstrap.min.css">
@@ -11,6 +11,7 @@
 	<!-- Fonts -->
 	<link href='https://fonts.googleapis.com/css?family=Righteous' rel='stylesheet' type='text/css'>
 	<link href='https://fonts.googleapis.com/css?family=Orienta' rel='stylesheet' type='text/css'>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
 	<!-- Scripts -->
 	<script src="res/angular_1.4.2.min.js"></script>
 	<script src="res/angular-route_1.4.2.min.js"></script>
@@ -18,7 +19,8 @@
 	<script src="res/ui-bootstrap-tpls-0.13.0.min.js"></script>
 	<script src="app/movieBase.js"></script>
 </head>
-<body>
+<body ng-controller="mainCtrl as main">
+	<span class="menubutton open" ng-click="main.toggleMenu()" ng-class="{opened: main.isOpened, closed: !main.isOpened}"><span>☰</span></span>
 
 	<div class="container-index">
 		
@@ -30,6 +32,16 @@
 
 
 	</div><!-- .container-index -->
+
+	<div id="menu" ng-class="{opened: main.isOpened, closed: !main.isOpened}">
+		<span class="menubutton" ng-click="main.toggleMenu()" ng-class="{opened: main.isOpened, closed: !main.isOpened}">✖</span>
+		<ul>
+			<li class="site-title"><h3 class="text-center">Moviebase</h3></li>
+			<li class="menu-item"><a ng-click="main.closeMenu()" href="/"><i class="fa fa-home"></i> <span>Home</span></a></li>
+			<li class="menu-item"><a ng-click="main.closeMenu()" href="/watchlist"><i class="fa fa-list"></i> <span>Watchlist</span></a></li>
+			<li class="menu-item"><a ng-click="main.closeMenu()" href="/addMovie"><i class="fa fa-plus"></i> <span>Add Movie</span></a></li>
+		</ul>
+	</div><!-- #menu -->
 	
 </body>
 </html>

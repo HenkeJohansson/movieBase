@@ -1,0 +1,56 @@
+/*******************************************
+**					AddMovie
+*******************************************/
+
+.content {
+	margin-top: 40px;
+}
+
+table.table-search {
+	overflow: scroll;
+
+	tbody {
+
+		.search-poster {
+
+			img {
+				max-height: 100px;
+			}
+		}
+
+		td.search-name {
+
+			a {
+				//...
+
+				h3 {
+					font-size: 14px;
+				}
+			}
+		}
+
+		.search-add {
+
+			button {
+				padding: 3px 6px;
+				font-size: 12px;
+			}
+		}
+	}
+}
+
+@media all and ( min-width: 991px ) {
+	table.table-search {
+
+		tbody {
+
+			.search-add {
+
+				button {
+					padding: 6px 12px;
+					font-size: 14px;
+				}
+			}
+		}
+	}
+}

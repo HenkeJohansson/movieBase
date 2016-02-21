@@ -2,39 +2,26 @@
 **					Watchlist
 *******************************************/
 
+#lists {
 
-header {
-	height: 15vh;
-	overflow: hidden;
-	position: relative;
-	// background-color: black;
+	table {
 
-	.background-header {
-		z-index: -1;
-		position: fixed;
-		top: 0;
-		width: 110%;
-		height: inherit;
-		
-		overflow: hidden;
+		tbody {
 
-		.poster-header {
-			display: inline-block;
-			height: 50%;
-			width: auto;
+			.genre {
+				font-size: 10px;
+			}
+
+			.info-btn {
+
+				button {
+					padding: 6px 6px;
+					font-size: 12px;
+				}
+			}
 		}
 	}
-
-	h1 {
-		z-index: 10;
-		position: absolute;
-		top: 50%;
-		left: 50%;
-		transform: translate(-50%, -50%);
-		margin: 0;
-	}
 }
-
 
 @media (min-width: 996px) {
 	
@@ -45,6 +32,20 @@ header {
 			height: 80vh;
 			overflow-y: scroll;
 		}
+
+			table {
+
+				tbody {
+
+					.info-btn {
+
+						button {
+							padding: 6px 12px;
+							font-size: 14px;
+						}
+					}
+				}
+			}
 	}
 
 }

@@ -1,3 +1,10 @@
+html {
+	box-sizing: border-box;
+}
+*, *:before, *:after {
+	box-sizing: inherit;
+}
+
 
 .clearfix {
 	clear: both;
@@ -5,7 +12,7 @@
 
 
 /*******************************************
-**					TYpography
+**					Typography
 *******************************************/
 
 h1, h2, h3, h4, h5, h6 {
@@ -50,9 +57,120 @@ h1.title {
 }
 
 
+/*******************************************
+**				Bootstrap stuff
+*******************************************/
+.table {
+    border-bottom:0px !important;
+}
+.table th, .table td {
+    border: 0px !important;
+}
+.fixed-table-container {
+    border:0px !important;
+}
 
 
+/*******************************************
+**					Menu
+*******************************************/
+#menu {
+	z-index: 99;
+	width: 100%;
+	height: 100vh;
+	position: fixed;
+	top: 0;
+	left: 0;
+	background-color: #1d1d1d;
 
+	.menubutton {
+		position: absolute;
+		top: 10px;
+		right: 10px;
+		cursor: pointer;
+	}
+
+	ul {
+		//...
+
+		li.menu-item {
+			border-top: 1px solid black;
+			&:hover {
+				background-color: #101010;
+				-webkit-box-shadow: inset 2px 2px 28px 14px rgba(58,58,58, .2);
+				-moz-box-shadow: inset 2px 2px 28px 14px rgba(58,58,58, .2);
+				box-shadow: inset 2px 2px 28px 14px rgba(58,58,58, .2);
+			}
+
+			a {
+				color: white;
+				display: inline-block;
+				width: 100%;
+				height: 100%;
+				padding: 15px;
+				padding-left: 25px;
+				&:hover {
+					text-decoration: none;
+				}
+
+				span {
+					margin-left: 10px;
+				}
+			}
+		}
+	}
+}
+
+#menu.closed {
+	left: -100%;
+	transition: all .2s ease-in-out;
+}
+
+#menu.opened {
+	left: 0;
+	transition: all .2s ease-in-out;
+}
+
+.menubutton {
+	z-index: 98;
+	color: white;
+	font-size: 26px;
+	cursor: pointer;
+	position: fixed;
+	top: 10px;
+	right: 10px;
+	text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
+}
+
+.menubutton.open {
+	font-weight: 500;
+}
+
+
+@media all and ( min-width: 991px ) {
+
+	#menu {
+		width: 300px;
+
+	}
+	
+	.menubutton.open {
+		position: absolute;
+		right: 0;
+		left: 10px;
+
+		span {
+			background-color: #1d1d1d;
+			padding: 5px 10px;
+		}
+	}
+
+}
+
+
+/*******************************************
+**					Modal
+*******************************************/
 
 .modal-backdrop {
 	height: 100%;
@@ -110,6 +228,25 @@ html, body {
 *******************************************/
 header {
 	height: 15vh;
+	width: 100%;
+	overflow: hidden;
+	position: relative;
+
+	.background-header {
+		z-index: -1;
+		position: absolute;
+		top: 0;
+		width: 110%;
+		height: inherit;
+		
+		overflow: hidden;
+
+		.poster-header {
+			display: inline-block;
+			height: 50%;
+			width: auto;
+		}
+	}
 
 
 	h1 {
@@ -124,20 +261,15 @@ header {
 
 
 /*******************************************
-**					Movie Search
+**					tables
 *******************************************/
+table {
 
-.content {
-	margin-top: 40px;
-}
+	tbody {
+		border-top: 2px solid #1d1d1d;
 
-table.table-search {
-	overflow: scroll;
-
-	.search-poster {
-
-		img {
-			max-height: 100px;
+		tr {
+			border-bottom: 1px solid rgb(118, 117, 117);
 		}
 	}
 }

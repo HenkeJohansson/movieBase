@@ -61,6 +61,19 @@ movieBase.factory('postersBackground', ['$http', function ($http) {
 
 }]);
 
+movieBase.controller('mainCtrl', function() {
+	var main = this;
+
+	this.isOpened = false;
+	this.toggleMenu = function() {
+		main.isOpened = !main.isOpened;
+	};
+
+	this.closeMenu = function() {
+		main.isOpened = false;
+	};
+});
+
 
 movieBase.controller('homeCtrl', function($http, postersBackground) {
 	var home = this;
